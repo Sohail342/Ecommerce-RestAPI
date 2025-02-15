@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     
     'users',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -53,9 +54,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     
     "allauth.account.middleware.AccountMiddleware",
-    
-    
-    
 ]
 
 ROOT_URLCONF = 'eccomerce_api.urls'
