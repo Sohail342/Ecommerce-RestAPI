@@ -8,7 +8,7 @@ from phonenumbers.phonenumberutil import NumberParseException
 User = get_user_model()
 
 
-class EmailAuthBackend(ModelBackend):
+class PhoneNumberAuthBackend(ModelBackend):
     """
     Custom authentication backend to login users using phone number.
     """

@@ -1,5 +1,5 @@
 from rest_framework import permissions, viewsets
-
+from django.core.cache import cache
 from products.models import Product, ProductCategory
 from products.permissions import IsSellerOrAdmin
 from products.serializers import (
@@ -41,3 +41,19 @@ class ProductViewSet(viewsets.ModelViewSet):
             self.permission_classes = (permissions.AllowAny,)
 
         return super().get_permissions()
+    
+    
+    def get_queryset(self):
+        """
+        Cache product list for performance optimization.
+        """
+        cache_key = "product_list"
+        cached_products = cache.get(cache_key)
+
+        if cached_products:
+            return cached_products 
+
+        # If cache is empty, fetch from DB and store in cache
+        products = Product.objects.all()
+        cache.set(cache_key, products, timeout=60 * 5)  # Cache for 5 minutes
+        return products

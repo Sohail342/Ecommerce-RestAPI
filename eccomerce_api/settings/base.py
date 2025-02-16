@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'users',
     'products',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -187,3 +188,14 @@ EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
 TWILIO_ACCOUNT_SID = config("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = config("TWILIO_AUTH_TOKEN")
 TWILIO_PHONE_NUMBER = config("TWILIO_PHONE_NUMBER")
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

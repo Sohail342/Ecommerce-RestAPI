@@ -79,7 +79,7 @@ class UserRegistrationSerializer(RegisterSerializer):
         
         if phone_number:
             PhoneNumber.objects.create(user=user, phone_number=phone_number)
-            user.phone.save()
+            user.save()
             
     def custom_signup(self, request, user):
         self.create_extra(user, self.get_cleaned_data_extra())
