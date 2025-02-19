@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-
+from .tasks import send_email_task
 from orders.models import Order, OrderItem
 from orders.permissions import (
     IsOrderByBuyerOrAdmin,
@@ -53,6 +53,14 @@ class OrderViewSet(viewsets.ModelViewSet):
             return OrderWriteSerializer
 
         return OrderReadSerializer
+    
+    def perform_create(self, serializer):
+        order = serializer.save(buyer=self.request.user)
+        send_email_task.delay(
+            subject="Order Confirmed",
+            message=f"Order {order.id} has been Confirmed.",
+            email=self.request.user.email,
+        )
 
     def get_queryset(self):
         res = super().get_queryset()

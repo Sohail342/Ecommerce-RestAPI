@@ -19,6 +19,12 @@ This is an E-commerce API built using Django REST Framework (DRF). It supports u
 - **API Documentation**:
   - Auto-generated API documentation using **DRF Spectacular**.
 
+- **Asynchronous Task Management & Caching**:
+  - **Celery** for background task execution (e.g., sending emails, processing orders).
+  - **Redis** as:
+    - A message broker for Celery to handle asynchronous tasks.
+    - A caching layer to improve performance and reduce database queries.
+
 ---
 
 ## Technologies Used
